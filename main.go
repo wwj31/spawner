@@ -83,11 +83,6 @@ func outfile(output, packagename string, structs []string) {
 	}...).Replace(tplpackage)
 
 	for _, val := range structs {
-		r := rune(val[0])
-		if r < 97 {
-			continue
-		}
-
 		// provide factory func
 		context += strings.NewReplacer([]string{
 			"{name}", val,

@@ -16,8 +16,7 @@ type val struct {
 	v2 int
 }
 type sf int
-type ssf = val2
-type val2 struct {
+type Dal2 struct {
 	v1 int
 	v2 int
 }
