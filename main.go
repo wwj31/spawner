@@ -68,7 +68,7 @@ func Spawner(name string) (interface{},bool) {
 var spawner = map[string]factory{
 `
 
-const field = `"{name}":func() interface{} { return &{name}{} },
+const field = `"{package}.{name}":func() interface{} { return &{name}{} },
 `
 
 func outfile(output, packagename string, structs []string) {
@@ -86,6 +86,7 @@ func outfile(output, packagename string, structs []string) {
 		// provide factory func
 		context += strings.NewReplacer([]string{
 			"{name}", val,
+			"{package}", packagename,
 		}...).Replace(field)
 	}
 	context += "\n}"
