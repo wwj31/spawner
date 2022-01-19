@@ -15,6 +15,7 @@ import (
 var _pool = flag.Bool("pool", false, "support sync.pool")
 
 func main() {
+	flag.Parse()
 	genFile()
 	exec.Command("go", "fmt").Output()
 }
