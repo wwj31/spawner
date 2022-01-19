@@ -37,7 +37,11 @@ func Spawner(name string, newPool ...bool) (interface{},bool) {
 const tplSpawnerPool = `
 func Spawner(name string, newPool ...bool) (interface{}, bool) {
 	if len(newPool) > 0 && newPool[0] {
-		return spawnerPools[name].Get(),true
+		p, ok := spawnerPools[name]
+		if !ok {
+			return nil,false
+		}
+		return p.Get(),true
 	}
 	f, ok := spawner[name]
 	if !ok {
