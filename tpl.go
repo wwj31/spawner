@@ -7,11 +7,12 @@ type factory func() interface{}
 
 {spawnerFunc}
 
+{poolPut}
+
 var spawner = map[string]factory{
 	{mapContext}
 }
 
-{poolPut}
 `
 
 const tplPoolOutline = `{comment}
