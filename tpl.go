@@ -65,5 +65,5 @@ func Put(name string, x interface{}){}`
 const tplMapField = `"{package}.{name}":func() interface{} { return &{name}{} },
 `
 
-const tplMapPoolField = `"{package}.{name}":{New: func() interface{}{ return spawner["{package}.{name}"]}},
+const tplMapPoolField = `"{package}.{name}":{New: func() interface{}{ return spawner["{package}.{name}"]()}},
 `
