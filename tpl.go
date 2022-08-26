@@ -1,6 +1,7 @@
 package main
 
-const tplFactoryOutline = `{comment}
+const (
+	tplFactoryOutline = `{comment}
 package {package}
 
 type factory func() interface{}
@@ -15,7 +16,7 @@ var spawner = map[string]factory{
 
 `
 
-const tplPoolOutline = `{comment}
+	tplPoolOutline = `{comment}
 package {package}
 
 
@@ -26,7 +27,8 @@ var spawnerPools = map[string]*sync.Pool{
 }
 `
 
-const tplSpawner = `
+	// get build func without sync.pool
+	tplSpawner = `
 func Spawner(name string, newPool ...bool) (interface{},bool) {
 	f ,ok := spawner[name]
 	if !ok{
@@ -35,7 +37,7 @@ func Spawner(name string, newPool ...bool) (interface{},bool) {
 	return f(),true
 }`
 
-const tplSpawnerPool = `
+	tplSpawnerPool = `
 func Spawner(name string, newPool ...bool) (interface{}, bool) {
 	if len(newPool) > 0 && newPool[0] {
 		p, ok := spawnerPools[name]
@@ -51,19 +53,22 @@ func Spawner(name string, newPool ...bool) (interface{}, bool) {
 	return f(), true
 }`
 
-const tplPoolPut = `
+	tplPoolPut = `
 func Put(name string, x interface{}){
 	pool, ok := spawnerPools[name]
 	if !ok {
 		return
 	}
 	pool.Put(x)
-}`
-const tplWithoutPoolPut = `
+}
+`
+
+	tplWithoutPoolPut = `
 func Put(name string, x interface{}){}`
 
-const tplMapField = `"{package}.{name}":func() interface{} { return &{name}{} },
+	tplMapField = `"{package}.{name}":func() interface{} { return &{name}{} },
 `
 
-const tplMapPoolField = `"{package}.{name}":{New: func() interface{}{ return spawner["{package}.{name}"]()}},
+	tplMapPoolField = `"{package}.{name}":{New: func() interface{}{ return spawner["{package}.{name}"]()}},
 `
+)
